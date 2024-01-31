@@ -3,7 +3,6 @@ import { Car } from "../types";
 import {
   Dialog,
   DialogTitle,
-  DialogContent,
   DialogActions,
 } from "@mui/material";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
