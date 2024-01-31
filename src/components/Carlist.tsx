@@ -7,12 +7,16 @@ import {
   GridToolbar,
 } from "@mui/x-data-grid";
 import { useState } from "react";
-import { IconButton, Snackbar, Tooltip } from "@mui/material";
+import { Button, IconButton, Snackbar, Stack, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCar from "./AddCar";
 import EditCar from "./EditCar";
 
-function Carlist() {
+type CarlistProps = {
+  logOut?: () => void;
+};
+
+function Carlist({ logOut }: CarlistProps) {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const { mutate } = useMutation(deleteCar, {
@@ -77,7 +81,14 @@ function Carlist() {
   } else {
     return (
       <>
-        <AddCar />
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <AddCar />
+          <Button onClick={logOut}>Log out</Button>
+        </Stack>
         <DataGrid
           rows={data}
           columns={columns}
