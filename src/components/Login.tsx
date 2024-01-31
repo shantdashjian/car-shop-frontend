@@ -1,4 +1,4 @@
-import { Stack, TextField, Button } from "@mui/material";
+import { Stack, TextField, Button, Snackbar } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import Carlist from "./Carlist";
@@ -14,6 +14,7 @@ function Login() {
     password: "",
   });
   const [isAuthenticated, setAuth] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [event.target.name]: event.target.value });
@@ -31,7 +32,7 @@ function Login() {
           setAuth(true);
         }
       })
-      .catch((err) => console.error(err));
+      .catch(() => setOpen(true));
   };
 
   if (isAuthenticated) {
@@ -49,6 +50,12 @@ function Login() {
         <Button variant="outlined" color="primary" onClick={handleLogin}>
           Login
         </Button>
+        <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          onClose={() => setOpen(false)}
+          message="Login failed: Check your username and password"
+        />
       </Stack>
     );
   }
